@@ -1,40 +1,26 @@
 # 🏥 Sistema de Gestión de Admisiones - Unidad de Terapia Intensiva
 
-## ¿Qué es?
+Sistema integral para simplificar y mejorar el registro de pacientes en UTI.
 
-Un sistema integral diseñado para **simplificar y mejorar el registro de pacientes** en la Unidad de Terapia Intensiva. Permite a los profesionales de salud registrar información clínica de manera ordenada, segura y eficiente.
+## 🚀 Acceso Inmediato
+
+```
+URL:        http://localhost:8000
+Usuario:    demo
+Contraseña: Demo123!
+```
+
+**→ Abre http://localhost:8000 AHORA**
 
 ---
 
 ## ✨ Características Principales
 
-### 📋 **Ficha Clínica Completa**
-- Registro centralizado de datos del paciente
-- Información del ingreso (origen, diagnóstico, cama asignada)
-- Historial de admisiones y seguimiento del estado
-- Observaciones de enfermería documentadas
-
-### 🎯 **Checklist Clínico Personalizado**
-- Evaluación sistemática de parámetros vitales
-- Preguntas clínicas organizadas por categoría
-- Captura de valores numéricos, opciones y observaciones
-- Identificación automática de parámetros críticos
-
-### 🚨 **Alertas Inteligentes en Tiempo Real**
-- Detección automática de situaciones que requieren atención inmediata
-- Notificaciones claras y oportunas al equipo de enfermería
-- Sugerencias de acciones recomendadas
-- Niveles de alerta según la gravedad
-
-### 📊 **Panel de Control y Métricas**
-- Visualización del estado general de la UTI
-- Indicadores clave de desempeño
-- Reportes agregados para análisis
-
-### 🔐 **Seguridad y Privacidad**
-- Acceso controlado mediante usuario y contraseña
-- Registro de responsables de cada acción
-- Trazabilidad completa de los cambios
+- 📋 **Ficha Clínica Completa** - Registro centralizado y seguro
+- 🎯 **Checklist Clínico** - 11 parámetros de evaluación
+- 🚨 **Alertas Inteligentes** - Detección automática en tiempo real
+- 📊 **Dashboard y Reportes** - Métricas e impresión
+- 🔐 **Seguridad** - Acceso controlado y auditoría completa
 
 ---
 
@@ -42,38 +28,50 @@ Un sistema integral diseñado para **simplificar y mejorar el registro de pacien
 
 | Beneficio | Descripción |
 |-----------|-------------|
-| ⏱️ **Ahorro de tiempo** | Eliminación de papelwork repetitivo |
-| 🎯 **Mayor precisión** | Menos errores en la captura de datos |
-| 📱 **Acceso rápido** | Información a tu alcance cuando la necesitas |
-| 💡 **Mejor toma de decisiones** | Alertas automáticas que no dejas pasar |
-| 📈 **Seguimiento mejorado** | Historial completo del paciente disponible |
+| ⏱️ Ahorro de tiempo | Menos paperwork |
+| 🎯 Mayor precisión | Menos errores |
+| 📱 Acceso rápido | Información al instante |
+| 💡 Mejor decisiones | Alertas automáticas |
+| 📈 Mejor seguimiento | Historial completo |
 
 ---
 
-## 🚀 Mejoras Recientes
+## 📚 Documentación
 
-- ✅ Motor de alertas clínicas automático
-- ✅ Evaluación inteligente de parámetros críticos
-- ✅ Interfaz simplificada y amigable
-- ✅ Reportes y visualización de métricas
-- ✅ Impresión de resúmenes clínicos
+**Archivo único con toda la información:**
+
+→ **Abre: GUIA_COMPLETA.md**
+
+En ese archivo encontrarás:
+- ✅ Cómo acceder al sistema
+- ✅ Guía para usuarios finales
+- ✅ Guía técnica para administradores
+- ✅ Solución de problemas
+- ✅ Preguntas frecuentes
+- ✅ Todo en un solo lugar
 
 ---
 
 ## 🤝 Quiénes lo Usan
 
-- **Enfermeros/as** de la UTI
-- **Médicos** responsables
-- **Coordinadores** de unidad
-- **Administradores** clínicos
+- Enfermeros/as de UTI
+- Médicos responsables
+- Coordinadores de unidad
+- Administradores clínicos
 
 ---
 
-## ¿Necesitas Ayuda?
+## ✅ Estado del Sistema
 
-Para consultas sobre el uso del sistema, funcionalidades específicas o soporte técnico, contáctate con el equipo de implementación.
+- ✓ Servidor funcionando (http://localhost:8000)
+- ✓ Base de datos lista
+- ✓ Usuario demo disponible
+- ✓ Catálogo clínico cargado
+- ✓ Motor de alertas operacional
 
 ---
 
-*Sistema desarrollado para mejorar la calidad de la atención en Unidades de Terapia Intensiva.*
+**→ [Lee la guía completa: GUIA_COMPLETA.md](GUIA_COMPLETA.md)**
+
+*Sistema desarrollado para mejorar la calidad de la atención en UTI.*
 # admision

@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard de Métricas{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Dashboard de Métricas</h1>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-3">
+    <div class="card text-bg-primary h-100">
+      <div class="card-body">
+        <div class="fs-2">{{ total_pacientes }}</div>
+        <div>Pacientes registrados</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-bg-success h-100">
+      <div class="card-body">
+        <div class="fs-2">{{ admisiones_activas }}</div>
+        <div>Admisiones activas</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-bg-danger h-100">
+      <div class="card-body">
+        <div class="fs-2">{{ alertas_criticas_pendientes }}</div>
+        <div>Alertas críticas pendientes</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card text-bg-warning h-100">
+      <div class="card-body">
+        <div class="fs-2">{{ alertas_pendientes_total }}</div>
+        <div>Alertas pendientes (total)</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="card mb-3">
+      <div class="card-header">Admisiones por Procedencia</div>
+      <ul class="list-group list-group-flush">
+        {% for fila in admisiones_por_procedencia %}
+        <li class="list-group-item d-flex justify-content-between">
+          <span>{{ fila.procedencia }}</span>
+          <span class="badge bg-secondary">{{ fila.total }}</span>
+        </li>
+        {% empty %}
+        <li class="list-group-item text-muted">Sin datos.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-7">
+    <div class="card mb-3">
+      <div class="card-header">Últimas Alertas Pendientes</div>
+      <ul class="list-group list-group-flush">
+        {% for alerta in ultimas_alertas %}
+        <li class="list-group-item">
+          <strong>{{ alerta.titulo }}</strong> — {{ alerta.admision.paciente }}
+          <span class="badge bg-{% if alerta.nivel == 'CRITICA' %}danger{% elif alerta.nivel == 'ADVERTENCIA' %}warning{% else %}info{% endif %} float-end">
+            {{ alerta.get_nivel_display }}
+          </span>
+        </li>
+        {% empty %}
+        <li class="list-group-item text-muted">No hay alertas pendientes.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

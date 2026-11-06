@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Nueva Admisión{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Nueva Admisión</h1>
+<form method="post" novalidate>
+  {% csrf_token %}
+  <div class="card mb-3">
+    <div class="card-header">Datos del Paciente</div>
+    <div class="card-body row g-3">
+      <div class="col-md-3">
+        <label class="form-label">DNI *</label>
+        <input type="text" name="dni" class="form-control" value="{{ paciente_form.dni.value|default:'' }}" required>
+        <div class="form-text">Si el DNI ya está registrado, se usan los datos existentes del paciente.</div>
+      </div>
+      {% if paciente_form %}
+      {% for field in paciente_form %}
+      {% if field.name != 'dni' %}
+      <div class="col-md-3">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="text-danger small">{{ field.errors|striptags }}</div>{% endif %}
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card mb-3">
+    <div class="card-header">Datos de la Admisión</div>
+    <div class="card-body row g-3">
+      {% for field in admision_form %}
+      <div class="col-md-4">
+        <label class="form-label">{{ field.label }}</label>
+        {{ field }}
+        {% if field.errors %}<div class="text-danger small">{{ field.errors|striptags }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle"></i> Registrar Admisión</button>
+</form>
+{% endblock %}

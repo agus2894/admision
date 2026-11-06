@@ -1,0 +1,20 @@
+body {
+  background-color: #f4f6f8;
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="number"],
+form input[type="date"] {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  border: 1px solid #ced4da;
+  border-radius: .375rem;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

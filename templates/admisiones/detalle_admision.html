@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Admisión de {{ admision.paciente }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div>
+    <h1 class="h3 mb-1">{{ admision.paciente }}</h1>
+    <div class="text-muted">
+      DNI {{ admision.paciente.dni }} · Cama {{ admision.cama }} ·
+      {{ admision.get_procedencia_display }} ·
+      <span class="badge bg-{% if admision.estado == 'ACTIVA' %}success{% elif admision.estado == 'OBITO' %}dark{% else %}secondary{% endif %}">
+        {{ admision.get_estado_display }}
+      </span>
+    </div>
+  </div>
+  <a class="btn btn-outline-secondary no-print" href="{% url 'admisiones:imprimir_resumen' admision.pk %}" target="_blank">
+    <i class="bi bi-printer"></i> Imprimir Resumen
+  </a>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">Diagnóstico e Ingreso</div>
+  <div class="card-body">
+    <p><strong>Diagnóstico:</strong> {{ admision.diagnostico_ingreso }}</p>
+    {% if admision.motivo_ingreso %}<p><strong>Motivo:</strong> {{ admision.motivo_ingreso }}</p>{% endif %}
+    <p class="text-muted mb-0">Ingreso: {{ admision.fecha_ingreso|date:"d/m/Y H:i" }}</p>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">Alertas Clínicas</div>
+  <div class="card-body">
+    <div id="alertas-container">
+      {% for alerta in alertas %}
+      <div class="alert alert-{% if alerta.nivel == 'CRITICA' %}danger{% elif alerta.nivel == 'ADVERTENCIA' %}warning{% else %}info{% endif %} d-flex justify-content-between align-items-start"
+           data-alerta-id="{{ alerta.id }}">
+        <div>
+          <strong>{{ alerta.titulo }}</strong>
+          <div>{{ alerta.mensaje }}</div>
+          <div class="small fst-italic">{{ alerta.sugerencia }}</div>
+        </div>
+        {% if not alerta.reconocida %}
+        <form method="post" action="{% url 'admisiones:reconocer_alerta' admision.pk alerta.id %}" class="reconocer-form ms-3">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm btn-outline-dark">Reconocer</button>
+        </form>
+        {% else %}
+        <span class="badge bg-secondary ms-3">Reconocida</span>
+        {% endif %}
+      </div>
+      {% empty %}
+      <p class="text-muted mb-0" id="sin-alertas">Sin alertas generadas hasta el momento.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<div class="card mb-3">
+  <div class="card-header">Checklist Clínico</div>
+  <div class="card-body">
+    <form id="checklist-form" method="post" data-url="{% url 'admisiones:guardar_checklist' admision.pk %}">
+      {% csrf_token %}
+      {% for categoria, campos in checklist_form.items_agrupados %}
+      <fieldset class="mb-4">
+        <legend class="h6"><i class="bi {{ categoria.icono }}"></i> {{ categoria.nombre }}</legend>
+        <div class="row g-3">
+          {% for campo in campos %}
+          <div class="col-md-4">
+            <label class="form-label">
+              {{ campo.label }}{% if campo.field.widget.attrs.placeholder and campo.field.widget.attrs.placeholder != '' %} ({{ campo.field.widget.attrs.placeholder }}){% endif %}
+            </label>
+            {{ campo }}
+            {% if campo.help_text %}<div class="form-text">{{ campo.help_text }}</div>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </fieldset>
+      {% empty %}
+      <p class="text-muted">No hay ítems de checklist configurados. Cargue el catálogo con <code>seed_uti_catalog</code>.</p>
+      {% endfor %}
+      <button type="submit" class="btn btn-primary" id="guardar-checklist-btn">
+        <i class="bi bi-save"></i> Guardar Checklist
+      </button>
+      <span id="checklist-status" class="ms-2 text-success"></span>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/checklist_live.js' %}"></script>
+{% endblock %}

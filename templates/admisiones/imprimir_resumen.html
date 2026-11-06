@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Resumen de Admisión - {{ admision.paciente }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 no-print">
+  <h1 class="h4 mb-0">Resumen de Admisión</h1>
+  <button class="btn btn-primary" onclick="window.print()"><i class="bi bi-printer"></i> Imprimir</button>
+</div>
+
+<h2 class="h5">{{ admision.paciente }}</h2>
+<p class="mb-1"><strong>DNI:</strong> {{ admision.paciente.dni }} · <strong>Fecha de nacimiento:</strong> {{ admision.paciente.fecha_nacimiento|date:"d/m/Y" }}</p>
+<p class="mb-1"><strong>Cobertura médica:</strong> {{ admision.paciente.cobertura_medica|default:"-" }}</p>
+<p class="mb-1"><strong>Alergias:</strong> {{ admision.paciente.alergias_conocidas|default:"Sin alergias registradas" }}</p>
+<p class="mb-3"><strong>Antecedentes:</strong> {{ admision.paciente.antecedentes_patologicos|default:"-" }}</p>
+
+<hr>
+
+<p class="mb-1"><strong>Cama:</strong> {{ admision.cama }} · <strong>Procedencia:</strong> {{ admision.get_procedencia_display }}</p>
+<p class="mb-1"><strong>Estado:</strong> {{ admision.get_estado_display }} · <strong>Ingreso:</strong> {{ admision.fecha_ingreso|date:"d/m/Y H:i" }}</p>
+<p class="mb-1"><strong>Diagnóstico:</strong> {{ admision.diagnostico_ingreso }}</p>
+<p class="mb-3"><strong>Motivo:</strong> {{ admision.motivo_ingreso|default:"-" }}</p>
+
+<h3 class="h6">Checklist Registrado</h3>
+<table class="table table-sm table-bordered">
+  <thead><tr><th>Categoría</th><th>Ítem</th><th>Valor</th></tr></thead>
+  <tbody>
+    {% for respuesta in respuestas %}
+    <tr>
+      <td>{{ respuesta.item.categoria.nombre }}</td>
+      <td>{{ respuesta.item.etiqueta }}</td>
+      <td>{{ respuesta.valor|default:"-" }}</td>
+    </tr>
+    {% empty %}
+    <tr><td colspan="3" class="text-center text-muted">Sin registros de checklist.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h3 class="h6">Alertas Generadas</h3>
+<ul class="list-unstyled">
+  {% for alerta in alertas %}
+  <li class="mb-2">
+    <strong>[{{ alerta.get_nivel_display }}] {{ alerta.titulo }}</strong> — {{ alerta.mensaje }}
+    <br><em>{{ alerta.sugerencia }}</em>
+  </li>
+  {% empty %}
+  <li class="text-muted">Sin alertas generadas.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
